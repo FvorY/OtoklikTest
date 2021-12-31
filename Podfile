@@ -8,6 +8,6 @@ target 'OtoklixTest' do
   # Pods for OtoklixTest
 
   pod 'Alamofire', '~> 4.9.0'
-#  pod 'Kingfisher'
+  pod 'Kingfisher'
   
 end
