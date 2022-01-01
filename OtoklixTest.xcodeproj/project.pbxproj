@@ -110,7 +110,7 @@
 		747CC867277B320D00CAAEB6 /* OtoklixTest */ = {
 			isa = PBXGroup;
 			children = (
-				747CC8BC277B4A3600CAAEB6 /* Cells */,
+				748720A4277FD25000F300FC /* Cells */,
 				747CC8A6277B34F900CAAEB6 /* ViewModels */,
 				747CC8A1277B349000CAAEB6 /* Models */,
 				747CC899277B335200CAAEB6 /* Views */,
@@ -169,7 +169,7 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
-		747CC8BC277B4A3600CAAEB6 /* Cells */ = {
+		748720A4277FD25000F300FC /* Cells */ = {
 			isa = PBXGroup;
 			children = (
 				747CC8C4277B547C00CAAEB6 /* NotFoundCollectionView.xib */,
@@ -177,7 +177,7 @@
 				747CC8BE277B4B2700CAAEB6 /* ListPostTableViewCell.swift */,
 				747CC8BD277B4B2700CAAEB6 /* ListPostTableViewCell.xib */,
 			);
-			name = Cells;
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		C29D3A2C4454E7E80AB264A3 /* Frameworks */ = {
