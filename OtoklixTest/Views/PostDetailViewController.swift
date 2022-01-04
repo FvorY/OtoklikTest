@@ -51,9 +51,5 @@ class PostDetailViewController: UIViewController, InisiateView, PostDetailViewMo
     @IBAction func btnCloseTouched(_ sender: Any) {
         self.dismiss(animated: false, completion: nil)
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        self.viewModel = nil
-    }
-    
+
 }
