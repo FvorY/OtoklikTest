@@ -113,4 +113,9 @@ class PostActionViewController: UIViewController, InisiateView, PostActionViewMo
     }
     
     
+    override func viewWillDisappear(_ animated: Bool) {
+        self.postData = nil
+        self.viewModel = nil
+    }
+    
 }

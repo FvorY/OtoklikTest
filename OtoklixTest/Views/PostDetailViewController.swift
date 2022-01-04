@@ -8,7 +8,7 @@ class PostDetailViewController: UIViewController, InisiateView, PostDetailViewMo
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblContent: UILabel!
     
-    var viewModel = PostDetailViewModel()
+    let viewModel = PostDetailViewModel()
     
     weak var coordinator: MainCoordinator?
     
@@ -50,6 +50,10 @@ class PostDetailViewController: UIViewController, InisiateView, PostDetailViewMo
     
     @IBAction func btnCloseTouched(_ sender: Any) {
         self.dismiss(animated: false, completion: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.viewModel = nil
     }
     
 }
