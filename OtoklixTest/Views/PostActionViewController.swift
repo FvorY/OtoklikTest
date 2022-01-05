@@ -1,7 +1,7 @@
 import UIKit
 import Kingfisher
 
-class PostActionViewController: UIViewController, InisiateView, PostActionViewModelDelegate {
+class PostActionViewController: BaseViewController, InisiateView, PostActionViewModelDelegate {
     
     @IBOutlet weak var viewModal: UIView!
     
@@ -25,12 +25,8 @@ class PostActionViewController: UIViewController, InisiateView, PostActionViewMo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        viewModel.controller = self
-        
+    
         viewModel.delegate = self
-        
-        viewModel.setupLoader()
         
         self.hideKeyboardWhenTappedAround()
     
@@ -73,9 +69,11 @@ class PostActionViewController: UIViewController, InisiateView, PostActionViewMo
         
         if self.postData != nil {
             if let iddata = self.postData?.id {
+                self.showLoading()
                 self.viewModel.editData(iddata, title: title, content: content)
             }
         } else {
+            self.showLoading()
             self.viewModel.postData(title, content: content)
         }
     }
@@ -86,6 +84,8 @@ class PostActionViewController: UIViewController, InisiateView, PostActionViewMo
     
     func refreshData() {
         DispatchQueue.main.async {
+            self.hideLoading()
+            
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshData"), object: nil)
             
             self.btnCloseTouched(self)
@@ -98,6 +98,7 @@ class PostActionViewController: UIViewController, InisiateView, PostActionViewMo
     
     func onCreateFailed() {
         DispatchQueue.main.async {
+            self.hideLoading()
             Globals.showAlertWithTitle("Error Create Data", message: "Check your internet connection!", viewController: self)
         }
     }
@@ -108,10 +109,10 @@ class PostActionViewController: UIViewController, InisiateView, PostActionViewMo
     
     func onEditFailed() {
         DispatchQueue.main.async {
+            self.hideLoading()
             Globals.showAlertWithTitle("Error Edit Data", message: "Check your internet connection!", viewController: self)
         }
     }
-    
     
     override func viewWillDisappear(_ animated: Bool) {
         self.postData = nil

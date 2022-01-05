@@ -1,7 +1,7 @@
 import UIKit
 import Kingfisher
 
-class PostDetailViewController: UIViewController, InisiateView, PostDetailViewModelDelegate {
+class PostDetailViewController: BaseViewController, InisiateView, PostDetailViewModelDelegate {
     
     @IBOutlet weak var viewModal: UIView!
     
@@ -17,20 +17,25 @@ class PostDetailViewController: UIViewController, InisiateView, PostDetailViewMo
     
         self.initView()
         
+        self.viewModel.delegate = self
+        
+        self.showLoading()
         self.viewModel.showData(self.viewModel.postDetail.id!)
+        
         // Do any additional setup after loading the view.
     }
     
-    func onShowSuccess(_ data: PostModel) {
+    func onShowSuccess() {
         DispatchQueue.main.async {
-            self.viewModel.postDetail = data
-            
+            print("Masuk")
+            self.hideLoading()
             self.setData()
         }
     }
     
     func onShowFailed() {
         DispatchQueue.main.async {
+            self.hideLoading()
             Globals.showAlertWithTitle("Error Detail Load", message: "Check your internet connection!", viewController: self)
         }
     }

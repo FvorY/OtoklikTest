@@ -1,7 +1,7 @@
 import UIKit
 import Kingfisher
 
-class PostViewController: UIViewController, InisiateView, PostViewModelDelegate {
+class PostViewController: BaseViewController, InisiateView, PostViewModelDelegate {
     
     @IBOutlet weak var listTableView: UITableView!
     
@@ -22,12 +22,9 @@ class PostViewController: UIViewController, InisiateView, PostViewModelDelegate 
         
         self.setupTable()
         
-        viewModel.controller = self
-        
         viewModel.delegate = self
-        
-        viewModel.setupLoader()
-        
+
+        self.showLoading()
         viewModel.getData()
         
         // Do any additional setup after loading the view.
@@ -47,18 +44,23 @@ class PostViewController: UIViewController, InisiateView, PostViewModelDelegate 
     
     func onSuccess() {
         DispatchQueue.main.async {
+            self.firstLoad = false
+            self.hideLoading()
             self.listTableView.reloadData()
         }
     }
     
     func onFailed() {
         DispatchQueue.main.async {
+            self.firstLoad = false
+            self.hideLoading()
             Globals.showAlertWithTitle("Error Load", message: "Check your internet connection!", viewController: self)
         }
     }
     
     func onDeleteSuccess(_ indexPath: IndexPath) {
         DispatchQueue.main.async {
+            self.hideLoading()
             self.listTableView.deleteRows(at: [indexPath], with: .none)
             self.listTableView.reloadData()
             Globals.showAlertWithTitle("Success Delete", message: "Delete Data Success!", viewController: self)
@@ -67,6 +69,7 @@ class PostViewController: UIViewController, InisiateView, PostViewModelDelegate 
     
     func onDeleteFailed() {
         DispatchQueue.main.async {
+            self.hideLoading()
             Globals.showAlertWithTitle("Error Delete", message: "Check your internet connection!", viewController: self)
         }
     }
@@ -79,7 +82,7 @@ class PostViewController: UIViewController, InisiateView, PostViewModelDelegate 
 
 extension PostViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if viewModel.networkingclient.firstLoad == true {
+        if self.firstLoad == true {
             return 0
         } else {
             if viewModel.postList.count == 0 {
@@ -126,6 +129,7 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             }
             
             cell.didDelete { (bool) in
+                self.showLoading()
                 self.viewModel.deleteData(cellinfo.id!, indexPath: indexPath)
             }
             
