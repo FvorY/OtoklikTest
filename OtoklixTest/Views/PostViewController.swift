@@ -26,8 +26,6 @@ class PostViewController: BaseViewController, InisiateView, PostViewModelDelegat
 
         self.showLoading()
         viewModel.getData()
-        
-        // Do any additional setup after loading the view.
     }
     
     @objc func refreshData() {
@@ -114,24 +112,11 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             
             let cellinfo = viewModel.postList[indexPath.row]
             
-            cell.viewBack.corners(19)
+            cell.renderData(cellinfo, indexPath: indexPath)
             
-            cell.lblTitle.text = cellinfo.title ?? ""
+            cell.editTouched = self.editTouched
             
-            cell.lblContent.text = cellinfo.content?.html2String ?? ""
-            
-            cell.btnEdit.corners(cell.btnEdit.frame.size.width / 2)
-            
-            cell.btnDelete.corners(cell.btnEdit.frame.size.width / 2)
-            
-            cell.didEdit { (bool) in
-                self.coordinator?.postEdit(cellinfo)
-            }
-            
-            cell.didDelete { (bool) in
-                self.showLoading()
-                self.viewModel.deleteData(cellinfo.id!, indexPath: indexPath)
-            }
+            cell.deleteTouched = self.deleteTouched
             
             return cell
             
@@ -140,7 +125,15 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cellinfo = viewModel.postList[indexPath.row]
-        
         self.coordinator?.postDetail(cellinfo)
+    }
+    
+    func editTouched(_ post: PostModel) {
+        self.coordinator?.postEdit(post)
+    }
+    
+    func deleteTouched(_ post: PostModel, indexPath: IndexPath) {
+        self.showLoading()
+        self.viewModel.deleteData(post.id!, indexPath: indexPath)
     }
 }

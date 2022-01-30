@@ -15,7 +15,6 @@ class PostActionViewModel {
     var networkingclient = NetworkingClient()
     
     func postData(_ title: String, content: String) {
-
         let params = [
             "title": title,
             "content": content
@@ -29,7 +28,6 @@ class PostActionViewModel {
                 self?.delegate?.onCreateFailed()
             }
         }
-        
     }
     
     func editData(_ id: Int, title: String, content: String) {

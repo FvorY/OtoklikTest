@@ -31,8 +31,6 @@ class PostActionViewController: BaseViewController, InisiateView, PostActionView
         self.hideKeyboardWhenTappedAround()
     
         self.initView()
-        
-        // Do any additional setup after loading the view.
     }
     
     func initView() {
