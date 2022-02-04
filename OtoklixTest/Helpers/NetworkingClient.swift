@@ -15,7 +15,7 @@ class NetworkingClient {
         }
     }
     
-    func post(_ url: URL, parameters: [String: Any]?, parmheader: [String: String]?,  completion: @escaping WebServiceResponse) {
+    func post(_ url: URL, parameters: [String: Any]?, parmheader: [String: String]?, completion: @escaping WebServiceResponse) {
         Alamofire.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: parmheader).responseJSON { response in
             if let error = response.error {
                 completion(nil, error)
@@ -25,7 +25,7 @@ class NetworkingClient {
         }
     }
     
-    func delete(_ url: URL, parameters: [String: Any]?, parmheader: [String: String]?,  completion: @escaping WebServiceResponse) {
+    func delete(_ url: URL, parameters: [String: Any]?, parmheader: [String: String]?, completion: @escaping WebServiceResponse) {
         Alamofire.request(url, method: .delete, parameters: parameters, encoding: JSONEncoding.default, headers: parmheader).responseJSON { response in
             if let error = response.error {
                 completion(nil, error)
@@ -35,7 +35,7 @@ class NetworkingClient {
         }
     }
     
-    func put(_ url: URL, parameters: [String: Any]?, parmheader: [String: String]?,  completion: @escaping WebServiceResponse) {
+    func put(_ url: URL, parameters: [String: Any]?, parmheader: [String: String]?, completion: @escaping WebServiceResponse) {
         Alamofire.request(url, method: .put, parameters: parameters, encoding: JSONEncoding.default, headers: parmheader).responseJSON { response in
             if let error = response.error {
                 completion(nil, error)
